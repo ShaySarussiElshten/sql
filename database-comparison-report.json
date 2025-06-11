@@ -1,26 +1,26 @@
 {
   "summary": {
-    "totalRecordsCompared": 10,
+    "totalRecordsCompared": 500,
     "exactMatches": {
-      "count": 0,
-      "percentage": "0.00"
+      "count": 253,
+      "percentage": "50.60"
     },
     "deltaMatches": {
-      "count": 0,
-      "percentage": "0.00"
+      "count": 2,
+      "percentage": "0.40"
     },
     "significantMismatches": {
-      "count": 10,
-      "percentage": "100.00"
+      "count": 245,
+      "percentage": "49.00"
     },
-    "overallAccuracy": "0.00"
+    "overallAccuracy": "51.00"
   },
   "detailedAnalysis": {
     "deltaAnalysis": {
-      "count": 6,
-      "minDelta": 0.0049999999999954525,
-      "maxDelta": 0.00999999999999801,
-      "avgDelta": 0.00833333333332753
+      "count": 12,
+      "minDelta": 0.0019999999999527063,
+      "maxDelta": 0.009999999999990905,
+      "avgDelta": 0.006124999999996679
     },
     "topMismatches": [
       {
@@ -54,78 +54,106 @@
         "db2Value": "Coding Manual"
       },
       {
-        "recordIndex": 1,
+        "recordIndex": 4,
         "field": "category_name",
-        "db1Value": "Books",
-        "db2Value": "Literature"
+        "db1Value": "Electronics",
+        "db2Value": "Tech"
       },
       {
-        "recordIndex": 1,
-        "field": "customer_region",
-        "db1Value": "UK",
-        "db2Value": "Europe"
+        "recordIndex": 5,
+        "field": "total_amount",
+        "db1Value": 49.1,
+        "db2Value": 52.82
       },
       {
-        "recordIndex": 2,
-        "field": "customer_name",
-        "db1Value": "Bob Johnson",
-        "db2Value": "Robert Johnson"
+        "recordIndex": 5,
+        "field": "unit_price",
+        "db1Value": 24.55,
+        "db2Value": 26.41
       },
       {
-        "recordIndex": 2,
+        "recordIndex": 8,
         "field": "product_name",
-        "db1Value": "T-Shirt",
-        "db2Value": "Cotton Shirt"
+        "db1Value": "Laptop Pro",
+        "db2Value": "Professional Laptop"
       },
       {
-        "recordIndex": 2,
+        "recordIndex": 8,
         "field": "category_name",
-        "db1Value": "Clothing",
-        "db2Value": "Fashion"
+        "db1Value": "Electronics",
+        "db2Value": "Tech"
       }
     ],
     "topDeltas": [
       {
-        "recordIndex": 5,
-        "field": "total_amount",
-        "delta": 0.00999999999999801,
-        "db1Value": "31.98",
-        "db2Value": "31.99"
-      },
-      {
-        "recordIndex": 1,
+        "recordIndex": 88,
         "field": "total_amount",
         "delta": 0.009999999999990905,
-        "db1Value": "91.98",
-        "db2Value": "91.99"
+        "db1Value": 1199.99,
+        "db2Value": 1200
       },
       {
-        "recordIndex": 4,
-        "field": "total_amount",
-        "delta": 0.009999999999990905,
-        "db1Value": "699.99",
-        "db2Value": "700.00"
-      },
-      {
-        "recordIndex": 4,
+        "recordIndex": 88,
         "field": "unit_price",
         "delta": 0.009999999999990905,
-        "db1Value": "699.990000",
-        "db2Value": "700.0000000000000000"
+        "db1Value": 1199.99,
+        "db2Value": 1200
       },
       {
-        "recordIndex": 5,
+        "recordIndex": 271,
+        "field": "total_amount",
+        "delta": 0.009999999999990905,
+        "db1Value": 177.5,
+        "db2Value": 177.51
+      },
+      {
+        "recordIndex": 278,
+        "field": "total_amount",
+        "delta": 0.009999999999990905,
+        "db1Value": 325,
+        "db2Value": 325.01
+      },
+      {
+        "recordIndex": 436,
+        "field": "total_amount",
+        "delta": 0.009999999999990905,
+        "db1Value": 1399.98,
+        "db2Value": 1399.99
+      },
+      {
+        "recordIndex": 161,
         "field": "unit_price",
-        "delta": 0.004999999999999005,
-        "db1Value": "15.990000",
-        "db2Value": "15.9950000000000000"
+        "delta": 0.005000000000002558,
+        "db1Value": 45.985,
+        "db2Value": 45.99
       },
       {
-        "recordIndex": 1,
+        "recordIndex": 367,
+        "field": "unit_price",
+        "delta": 0.005000000000002558,
+        "db1Value": 35.5,
+        "db2Value": 35.505
+      },
+      {
+        "recordIndex": 436,
         "field": "unit_price",
         "delta": 0.0049999999999954525,
-        "db1Value": "45.990000",
-        "db2Value": "45.9950000000000000"
+        "db1Value": 699.99,
+        "db2Value": 699.995
+      },
+      {
+        "recordIndex": 408,
+        "field": "unit_price",
+        "delta": 0.0025000000000545697,
+        "db1Value": 1200,
+        "db2Value": 1200.0025
+      },
+      {
+        "recordIndex": 271,
+        "field": "unit_price",
+        "delta": 0.0020000000000024443,
+        "db1Value": 35.5,
+        "db2Value": 35.502
       }
     ]
   },
