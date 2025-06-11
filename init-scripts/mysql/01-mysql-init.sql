@@ -62,13 +62,13 @@ INSERT INTO customers (id, name, email, city, country, registration_date) VALUES
 (10, 'Ivy Chen', 'ivy.chen@email.com', 'Singapore', 'Singapore', '2023-10-25');
 
 INSERT INTO transactions (id, customer_id, product_id, amount, quantity, status, created_at) VALUES
-(1, 1, 1, 1200.00, 1, 'completed', '2024-01-01 10:00:00'),
-(2, 2, 2, 91.98, 2, 'completed', '2024-01-02 11:30:00'),
-(3, 3, 3, 75.00, 3, 'pending', '2024-01-03 14:15:00'),
-(4, 4, 4, 89.99, 1, 'completed', '2024-01-04 09:45:00'),
-(5, 5, 5, 699.99, 1, 'completed', '2024-01-05 16:20:00'),
-(6, 6, 6, 31.98, 2, 'completed', '2024-01-06 12:10:00'),
-(7, 7, 7, 130.00, 2, 'completed', '2024-01-07 13:55:00'),
-(8, 8, 8, 71.00, 2, 'cancelled', '2024-01-08 15:30:00'),
-(9, 9, 1, 1200.00, 1, 'completed', '2024-01-09 11:45:00'),
-(10, 10, 2, 45.99, 1, 'completed', '2024-01-10 14:20:00');
+(1, 1, 1, 1200.00, 1, 'completed', '2024-01-01 10:00:00'),  -- Exact match
+(2, 2, 2, 91.98, 2, 'completed', '2024-01-02 11:30:00'),   -- Small delta (91.98 vs 91.99)
+(3, 3, 3, 75.00, 3, 'pending', '2024-01-03 14:15:00'),     -- Exact match
+(4, 4, 4, 89.99, 1, 'completed', '2024-01-04 09:45:00'),   -- Exact match
+(5, 5, 5, 699.99, 1, 'completed', '2024-01-05 16:20:00'),  -- Small delta (699.99 vs 700.00)
+(6, 6, 6, 31.98, 2, 'completed', '2024-01-06 12:10:00'),   -- Small delta (31.98 vs 31.99)
+(7, 7, 7, 130.00, 2, 'completed', '2024-01-07 13:55:00'),  -- Exact match
+(8, 8, 8, 71.00, 2, 'cancelled', '2024-01-08 15:30:00'),   -- Significant mismatch (71.00 vs 150.00)
+(9, 9, 1, 1200.00, 1, 'completed', '2024-01-09 11:45:00'), -- Exact match
+(10, 10, 2, 45.99, 1, 'completed', '2024-01-10 14:20:00'); -- Exact match
