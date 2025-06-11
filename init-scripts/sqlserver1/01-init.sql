@@ -1,44 +1,57 @@
+USE master;
+GO
+
+IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'testdb1')
+BEGIN
+    CREATE DATABASE testdb1;
+END
+GO
+
 USE testdb1;
+GO
 
 CREATE TABLE transactions (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id INT IDENTITY(1,1) PRIMARY KEY,
     customer_id INT NOT NULL,
     product_id INT NOT NULL,
     amount DECIMAL(10,2) NOT NULL,
     quantity INT NOT NULL DEFAULT 1,
-    status ENUM('pending', 'completed', 'cancelled') DEFAULT 'pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    status NVARCHAR(20) DEFAULT 'pending' CHECK (status IN ('pending', 'completed', 'cancelled')),
+    created_at DATETIME2 DEFAULT GETDATE()
 );
 
 CREATE TABLE customers (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(150) UNIQUE,
-    city VARCHAR(50),
-    country VARCHAR(50),
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    name NVARCHAR(100) NOT NULL,
+    email NVARCHAR(150) UNIQUE,
+    city NVARCHAR(50),
+    country NVARCHAR(50),
     registration_date DATE
 );
 
 CREATE TABLE products (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    name NVARCHAR(100) NOT NULL,
     category_id INT NOT NULL,
     price DECIMAL(10,2) NOT NULL,
     stock_quantity INT DEFAULT 0
 );
 
 CREATE TABLE categories (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL,
-    description TEXT
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    name NVARCHAR(50) NOT NULL,
+    description NVARCHAR(MAX)
 );
 
+SET IDENTITY_INSERT categories ON;
 INSERT INTO categories (id, name, description) VALUES
 (1, 'Electronics', 'Electronic devices and gadgets'),
 (2, 'Books', 'Physical and digital books'),
 (3, 'Clothing', 'Apparel and accessories'),
 (4, 'Home', 'Home and garden items');
+SET IDENTITY_INSERT categories OFF;
 
+SET IDENTITY_INSERT products ON;
 INSERT INTO products (id, name, category_id, price, stock_quantity) VALUES
 (1, 'Laptop Pro', 1, 1200.00, 50),
 (2, 'Programming Book', 2, 45.99, 100),
@@ -48,7 +61,9 @@ INSERT INTO products (id, name, category_id, price, stock_quantity) VALUES
 (6, 'Novel', 2, 15.99, 150),
 (7, 'Jeans', 3, 65.00, 80),
 (8, 'Desk Lamp', 4, 35.50, 40);
+SET IDENTITY_INSERT products OFF;
 
+SET IDENTITY_INSERT customers ON;
 INSERT INTO customers (id, name, email, city, country, registration_date) VALUES
 (1, 'John Smith', 'john.smith@email.com', 'New York', 'USA', '2023-01-15'),
 (2, 'Jane Doe', 'jane.doe@email.com', 'London', 'UK', '2023-02-20'),
@@ -60,7 +75,8 @@ INSERT INTO customers (id, name, email, city, country, registration_date) VALUES
 (8, 'Grace Lee', 'grace.lee@email.com', 'Seoul', 'South Korea', '2023-08-30'),
 (9, 'Henry Taylor', 'henry.taylor@email.com', 'Madrid', 'Spain', '2023-09-14'),
 (10, 'Ivy Chen', 'ivy.chen@email.com', 'Singapore', 'Singapore', '2023-10-25');
-
+SET IDENTITY_INSERT customers OFF;
+SET IDENTITY_INSERT transactions ON;
 INSERT INTO transactions (id, customer_id, product_id, amount, quantity, status, created_at) VALUES
 (1, 1, 1, 4800.00, 4, 'completed', '2024-01-01 16:40:00'),
 (2, 2, 2, 183.96, 4, 'completed', '2024-01-01 14:49:00'),
@@ -562,3 +578,4 @@ INSERT INTO transactions (id, customer_id, product_id, amount, quantity, status,
 (498, 8, 2, 137.97, 3, 'completed', '2024-02-19 10:46:00'),
 (499, 9, 3, 200.07, 5, 'completed', '2024-02-19 09:42:00'),
 (500, 10, 4, 591.13, 5, 'completed', '2024-02-19 13:06:00');
+SET IDENTITY_INSERT transactions OFF;

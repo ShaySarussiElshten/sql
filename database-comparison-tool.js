@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-const mysql = require('mysql2/promise');
-const { Pool } = require('pg');
+const sql = require('mssql');
 const fs = require('fs').promises;
 
 class DatabaseComparisonTool {
@@ -25,14 +24,21 @@ class DatabaseComparisonTool {
     try {
       console.log(`Connecting to ${dbType} database...`);
       
-      if (dbType === 'mysql') {
-        const connection = await mysql.createConnection(connectionString);
-        await connection.ping();
-        console.log(`✓ Successfully connected to ${dbType} database`);
-        return connection;
-      } else if (dbType === 'postgresql') {
-        const pool = new Pool({ connectionString });
-        await pool.query('SELECT 1');
+      if (dbType === 'sqlserver') {
+        const url = new URL(connectionString);
+        const config = {
+          server: url.hostname,
+          port: parseInt(url.port) || 1433,
+          user: url.username,
+          password: url.password,
+          database: url.pathname.substring(1),
+          options: {
+            encrypt: false,
+            trustServerCertificate: true
+          }
+        };
+        const pool = new sql.ConnectionPool(config);
+        await pool.connect();
         console.log(`✓ Successfully connected to ${dbType} database`);
         return pool;
       } else {
@@ -65,12 +71,9 @@ class DatabaseComparisonTool {
 
   async executeQuery(connection, query, dbType) {
     try {
-      if (dbType === 'mysql') {
-        const [rows] = await connection.execute(query);
-        return rows;
-      } else if (dbType === 'postgresql') {
-        const result = await connection.query(query);
-        return result.rows;
+      if (dbType === 'sqlserver') {
+        const result = await connection.request().query(query);
+        return result.recordset;
       }
     } catch (error) {
       console.error(`Query execution failed on ${dbType}:`, error.message);
@@ -510,18 +513,14 @@ class DatabaseComparisonTool {
   async closeConnections() {
     try {
       if (this.db1Connection) {
-        if (this.config.db1Type === 'mysql') {
-          await this.db1Connection.end();
-        } else if (this.config.db1Type === 'postgresql') {
-          await this.db1Connection.end();
+        if (this.config.db1Type === 'sqlserver') {
+          await this.db1Connection.close();
         }
       }
       
       if (this.db2Connection) {
-        if (this.config.db2Type === 'mysql') {
-          await this.db2Connection.end();
-        } else if (this.config.db2Type === 'postgresql') {
-          await this.db2Connection.end();
+        if (this.config.db2Type === 'sqlserver') {
+          await this.db2Connection.close();
         }
       }
       
@@ -581,14 +580,14 @@ class DatabaseComparisonTool {
 
 async function main() {
   const config = {
-    db1ConnectionString: process.env.DB1_CONNECTION_STRING || 'mysql://user:password@localhost:3306/database1',
-    db1Type: 'mysql',
+    db1ConnectionString: process.env.DB1_CONNECTION_STRING || 'mssql://sa:StrongPassword123!@localhost:1433/testdb1',
+    db1Type: 'sqlserver',
     
-    db2ConnectionString: process.env.DB2_CONNECTION_STRING || 'postgresql://user:password@localhost:5432/database2',
-    db2Type: 'postgresql',
+    db2ConnectionString: process.env.DB2_CONNECTION_STRING || 'mssql://sa:StrongPassword123!@localhost:1434/testdb2',
+    db2Type: 'sqlserver',
     
-    db1Query: process.env.DB1_QUERY || 'SELECT id, name, amount, created_at FROM transactions ORDER BY id LIMIT 1000',
-    db2Query: process.env.DB2_QUERY || 'SELECT transaction_id, customer_name, total_amount, timestamp FROM orders ORDER BY transaction_id LIMIT 1000',
+    db1Query: process.env.DB1_QUERY || 'SELECT TOP 1000 id, name, amount, created_at FROM transactions ORDER BY id',
+    db2Query: process.env.DB2_QUERY || 'SELECT TOP 1000 transaction_id, customer_name, total_amount, timestamp FROM orders ORDER BY transaction_id',
     
     fieldMappings: [
       { db1: 'id', db2: 'transaction_id' },

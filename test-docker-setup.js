@@ -8,10 +8,10 @@ async function testDockerSetup() {
   
   const config = {
     db1ConnectionString: process.env.DB1_CONNECTION_STRING,
-    db1Type: 'mysql',
+    db1Type: 'sqlserver',
     
     db2ConnectionString: process.env.DB2_CONNECTION_STRING,
-    db2Type: 'postgresql',
+    db2Type: 'sqlserver',
     
     db1Query: process.env.DB1_QUERY,
     db2Query: process.env.DB2_QUERY,
