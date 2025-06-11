@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node database-comparison-tool.js",
     "test": "node test-example.js",
+    "test:docker": "node test-docker-setup.js",
     "install-deps": "npm install"
   },
   "keywords": [
@@ -23,6 +24,7 @@
   "author": "Devin AI",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^16.5.0",
     "mysql2": "^3.6.5",
     "pg": "^8.11.3"
   },
