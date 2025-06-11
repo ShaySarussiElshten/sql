@@ -25,7 +25,19 @@ class DatabaseComparisonTool {
       console.log(`Connecting to ${dbType} database...`);
       
       if (dbType === 'sqlserver') {
-        const pool = new sql.ConnectionPool(connectionString);
+        const url = new URL(connectionString);
+        const config = {
+          server: url.hostname,
+          port: parseInt(url.port) || 1433,
+          user: url.username,
+          password: url.password,
+          database: url.pathname.substring(1),
+          options: {
+            encrypt: false,
+            trustServerCertificate: true
+          }
+        };
+        const pool = new sql.ConnectionPool(config);
         await pool.connect();
         console.log(`✓ Successfully connected to ${dbType} database`);
         return pool;
