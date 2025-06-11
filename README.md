@@ -4,7 +4,7 @@ A comprehensive Node.js script that connects to two databases, compares data wit
 
 ## Features
 
-- **Multi-Database Support**: Works with MySQL and PostgreSQL databases
+- **Multi-Database Support**: Works with Microsoft SQL Server databases
 - **Flexible Field Mapping**: Define custom field mappings between databases
 - **Automatic Field Detection**: Attempts to detect field mappings automatically
 - **Delta Tolerance**: Configurable tolerance for numeric differences
@@ -23,8 +23,7 @@ npm install
 
 ## Dependencies
 
-- `mysql2`: MySQL database connector
-- `pg`: PostgreSQL database connector
+- `mssql`: Microsoft SQL Server database connector
 
 ## Configuration
 
