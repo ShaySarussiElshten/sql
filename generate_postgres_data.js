@@ -62,5 +62,6 @@ for (let i = 1; i <= 500; i++) {
 
 sql += ';';
 
-fs.writeFileSync('/home/ubuntu/sql/postgres_orders.sql', sql);
-console.log('Generated 500 PostgreSQL order rows with coordinated strategic mix');
+const finalSql = `SET IDENTITY_INSERT orders ON;\nINSERT INTO orders (order_id, user_id, item_id, total_amount, item_count, order_status, order_date) VALUES\n${sql}\nSET IDENTITY_INSERT orders OFF;`;
+fs.writeFileSync('/home/ubuntu/sql/sqlserver2_orders.sql', finalSql);
+console.log('Generated 500 SQL Server order rows with coordinated strategic mix');

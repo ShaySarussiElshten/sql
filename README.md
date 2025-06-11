@@ -33,10 +33,10 @@ npm install
 You can configure the tool using environment variables:
 
 ```bash
-export DB1_CONNECTION_STRING="mysql://user:password@localhost:3306/database1"
-export DB2_CONNECTION_STRING="postgresql://user:password@localhost:5432/database2"
-export DB1_QUERY="SELECT id, name, amount FROM table1 ORDER BY id LIMIT 1000"
-export DB2_QUERY="SELECT transaction_id, customer_name, total_amount FROM table2 ORDER BY transaction_id LIMIT 1000"
+export DB1_CONNECTION_STRING="mssql://sa:password@localhost:1433/database1"
+export DB2_CONNECTION_STRING="mssql://sa:password@localhost:1434/database2"
+export DB1_QUERY="SELECT TOP 1000 id, name, amount FROM table1 ORDER BY id"
+export DB2_QUERY="SELECT TOP 1000 transaction_id, customer_name, total_amount FROM table2 ORDER BY transaction_id"
 export ACCEPTABLE_DELTA="0.01"
 ```
 

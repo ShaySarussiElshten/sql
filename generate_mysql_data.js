@@ -61,5 +61,6 @@ for (let i = 1; i <= 500; i++) {
 
 sql += ';';
 
-fs.writeFileSync('/home/ubuntu/sql/mysql_transactions.sql', sql);
-console.log('Generated 500 MySQL transaction rows with strategic mix');
+const finalSql = `SET IDENTITY_INSERT transactions ON;\nINSERT INTO transactions (id, customer_id, product_id, amount, quantity, status, created_at) VALUES\n${sql}\nSET IDENTITY_INSERT transactions OFF;`;
+fs.writeFileSync('/home/ubuntu/sql/sqlserver1_transactions.sql', finalSql);
+console.log('Generated 500 SQL Server transaction rows with strategic mix');
