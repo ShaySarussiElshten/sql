@@ -26,24 +26,35 @@ node test-docker-setup.js
 
 ## What's Included
 
-- **MySQL 8.0 container** with `transactions` table
-- **PostgreSQL 15 container** with `orders` table  
-- **Test data** designed to demonstrate:
-  - Exact matches (records 1, 4, 7, 9, 10)
-  - Delta matches within tolerance (records 2, 5, 6)
-  - Significant mismatches (records 3, 8)
+- **MySQL 8.0 container** with complex schema:
+  - `transactions` table (main transaction data)
+  - `customers` table (customer information)
+  - `products` table (product catalog)
+  - `categories` table (product categories)
+- **PostgreSQL 15 container** with equivalent complex schema:
+  - `orders` table (main order data)
+  - `users` table (user information)  
+  - `items` table (item catalog)
+  - `product_types` table (item categories)
+- **Complex JOIN queries** with:
+  - Multiple table JOINs (3-4 tables each)
+  - Calculated fields (unit_price, value_tier)
+  - CASE statements for categorization
+  - 12 field mappings for comprehensive comparison
 
 ## Database Details
 
 ### MySQL (testdb1)
 - Port: 3306
 - User: testuser / testpass
-- Table: transactions (id, name, amount, created_at)
+- Complex query with JOINs across transactions, customers, products, categories
+- Returns: transaction_id, customer_name, product_name, category_name, total_amount, quantity, order_status, customer_location, customer_region, order_date, unit_price, value_tier
 
 ### PostgreSQL (testdb2)  
 - Port: 5432
 - User: testuser / testpass
-- Table: orders (transaction_id, customer_name, total_amount, timestamp)
+- Complex query with JOINs across orders, users, items, product_types
+- Returns: Same 12 fields as MySQL for comparison
 
 ## Expected Results
 

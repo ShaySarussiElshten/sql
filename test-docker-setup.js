@@ -17,10 +17,18 @@ async function testDockerSetup() {
     db2Query: process.env.DB2_QUERY,
     
     fieldMappings: [
-      { db1: 'id', db2: 'transaction_id' },
-      { db1: 'name', db2: 'customer_name' },
-      { db1: 'amount', db2: 'total_amount' },
-      { db1: 'created_at', db2: 'timestamp' }
+      { db1: 'transaction_id', db2: 'transaction_id' },
+      { db1: 'customer_name', db2: 'customer_name' },
+      { db1: 'product_name', db2: 'product_name' },
+      { db1: 'category_name', db2: 'category_name' },
+      { db1: 'total_amount', db2: 'total_amount' },
+      { db1: 'quantity', db2: 'quantity' },
+      { db1: 'order_status', db2: 'order_status' },
+      { db1: 'customer_location', db2: 'customer_location' },
+      { db1: 'customer_region', db2: 'customer_region' },
+      { db1: 'order_date', db2: 'order_date' },
+      { db1: 'unit_price', db2: 'unit_price' },
+      { db1: 'value_tier', db2: 'value_tier' }
     ],
     
     acceptableDelta: parseFloat(process.env.ACCEPTABLE_DELTA) || 0.01
