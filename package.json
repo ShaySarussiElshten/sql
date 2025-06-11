@@ -1,0 +1,35 @@
+{
+  "name": "database-comparison-tool",
+  "version": "1.0.0",
+  "description": "A comprehensive Node.js tool for comparing data between two databases with automatic field mapping detection and detailed reporting",
+  "main": "database-comparison-tool.js",
+  "bin": {
+    "db-compare": "./database-comparison-tool.js"
+  },
+  "scripts": {
+    "start": "node database-comparison-tool.js",
+    "test": "node test-example.js",
+    "install-deps": "npm install"
+  },
+  "keywords": [
+    "database",
+    "comparison",
+    "data-validation",
+    "mysql",
+    "postgresql",
+    "field-mapping",
+    "data-analysis"
+  ],
+  "author": "Devin AI",
+  "license": "MIT",
+  "dependencies": {
+    "mysql2": "^3.6.5",
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "sqlite3": "^5.1.6"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

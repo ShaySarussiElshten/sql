@@ -1,0 +1,88 @@
+{
+  "summary": {
+    "totalRecordsCompared": 15,
+    "exactMatches": {
+      "count": 7,
+      "percentage": "46.67"
+    },
+    "deltaMatches": {
+      "count": 6,
+      "percentage": "40.00"
+    },
+    "significantMismatches": {
+      "count": 2,
+      "percentage": "13.33"
+    },
+    "overallAccuracy": "86.67"
+  },
+  "detailedAnalysis": {
+    "deltaAnalysis": {
+      "count": 6,
+      "minDelta": 0.010000000000005116,
+      "maxDelta": 0.05000000000001137,
+      "avgDelta": 0.043333333333336554
+    },
+    "topMismatches": [
+      {
+        "recordIndex": 5,
+        "field": "amount",
+        "db1Value": "300.45",
+        "db2Value": "350.00"
+      },
+      {
+        "recordIndex": 9,
+        "field": "amount",
+        "db1Value": "95.60",
+        "db2Value": "195.60"
+      }
+    ],
+    "topDeltas": [
+      {
+        "recordIndex": 3,
+        "field": "amount",
+        "delta": 0.05000000000001137,
+        "db1Value": "500.00",
+        "db2Value": "499.95"
+      },
+      {
+        "recordIndex": 10,
+        "field": "amount",
+        "delta": 0.05000000000001137,
+        "db1Value": "450.25",
+        "db2Value": "450.30"
+      },
+      {
+        "recordIndex": 12,
+        "field": "amount",
+        "delta": 0.05000000000001137,
+        "db1Value": "189.50",
+        "db2Value": "189.55"
+      },
+      {
+        "recordIndex": 14,
+        "field": "amount",
+        "delta": 0.04999999999999716,
+        "db1Value": "78.25",
+        "db2Value": "78.20"
+      },
+      {
+        "recordIndex": 7,
+        "field": "amount",
+        "delta": 0.04999999999998295,
+        "db1Value": "175.80",
+        "db2Value": "175.85"
+      },
+      {
+        "recordIndex": 0,
+        "field": "amount",
+        "delta": 0.010000000000005116,
+        "db1Value": "100.50",
+        "db2Value": "100.51"
+      }
+    ]
+  },
+  "configuration": {
+    "acceptableDelta": 0.1,
+    "fieldMappingsUsed": 7
+  }
+}
