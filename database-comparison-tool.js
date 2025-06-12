@@ -20,23 +20,30 @@ class DatabaseComparisonTool {
     };
   }
 
-  async connectToDatabase(connectionString, dbType) {
+  async connectToDatabase(connectionConfig, dbType) {
     try {
       console.log(`Connecting to ${dbType} database...`);
       
       if (dbType === 'sqlserver') {
-        const url = new URL(connectionString);
-        const config = {
-          server: url.hostname,
-          port: parseInt(url.port) || 1433,
-          user: url.username,
-          password: url.password,
-          database: url.pathname.substring(1),
-          options: {
-            encrypt: false,
-            trustServerCertificate: true
-          }
-        };
+        let config;
+        
+        if (typeof connectionConfig === 'string') {
+          const url = new URL(connectionConfig);
+          config = {
+            server: url.hostname,
+            port: parseInt(url.port) || 1433,
+            user: url.username,
+            password: url.password,
+            database: url.pathname.substring(1),
+            options: {
+              encrypt: false,
+              trustServerCertificate: true
+            }
+          };
+        } else {
+          config = connectionConfig;
+        }
+        
         const pool = new sql.ConnectionPool(config);
         await pool.connect();
         console.log(`✓ Successfully connected to ${dbType} database`);
