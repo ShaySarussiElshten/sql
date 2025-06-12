@@ -27,9 +27,11 @@ npm install
 
 ## Configuration
 
-### Environment Variables
+The tool supports two configuration approaches:
 
-You can configure the tool using environment variables:
+### 1. Connection Strings (Traditional)
+
+Configure using connection string environment variables:
 
 ```bash
 export DB1_CONNECTION_STRING="mssql://sa:password@localhost:1433/database1"
@@ -39,31 +41,88 @@ export DB2_QUERY="SELECT TOP 1000 transaction_id, customer_name, total_amount FR
 export ACCEPTABLE_DELTA="0.01"
 ```
 
+### 2. Config Objects (NestJS Style)
+
+Configure using separate environment variables for each connection parameter:
+
+```bash
+# Database 1 Configuration
+export DB1_HOST="localhost"
+export DB1_PORT="1433"
+export DB1_USER="sa"
+export DB1_PASSWORD="password"
+export DB1_DATABASE="database1"
+
+# Database 2 Configuration
+export DB2_HOST="localhost"
+export DB2_PORT="1434"
+export DB2_USER="sa"
+export DB2_PASSWORD="password"
+export DB2_DATABASE="database2"
+
+# Queries
+export DB1_QUERY="SELECT TOP 1000 id, name, amount FROM table1 ORDER BY id"
+export DB2_QUERY="SELECT TOP 1000 transaction_id, customer_name, total_amount FROM table2 ORDER BY transaction_id"
+export ACCEPTABLE_DELTA="0.01"
+```
+
+Use `.env.docker` for connection strings or `.env.config` for config objects.
+
 ### Code Configuration
 
 Alternatively, modify the configuration object in the script:
 
 ```javascript
+// Using connection strings (traditional approach)
 const config = {
-  // Database connections
-  db1ConnectionString: 'mysql://user:password@localhost:3306/database1',
-  db1Type: 'mysql',
-  db2ConnectionString: 'postgresql://user:password@localhost:5432/database2',
-  db2Type: 'postgresql',
+  db1ConnectionString: 'mssql://sa:password@localhost:1433/database1',
+  db1Type: 'sqlserver',
+  db2ConnectionString: 'mssql://sa:password@localhost:1434/database2',
+  db2Type: 'sqlserver',
   
-  // Custom queries
-  db1Query: 'SELECT id, name, amount, created_at FROM transactions ORDER BY id LIMIT 1000',
-  db2Query: 'SELECT transaction_id, customer_name, total_amount, timestamp FROM orders ORDER BY transaction_id LIMIT 1000',
+  db1Query: 'SELECT TOP 1000 id, name, amount FROM table1 ORDER BY id',
+  db2Query: 'SELECT TOP 1000 transaction_id, customer_name, total_amount FROM table2 ORDER BY transaction_id',
   
-  // Field mappings
   fieldMappings: [
     { db1: 'id', db2: 'transaction_id' },
     { db1: 'name', db2: 'customer_name' },
-    { db1: 'amount', db2: 'total_amount' },
-    { db1: 'created_at', db2: 'timestamp' }
+    { db1: 'amount', db2: 'total_amount' }
   ],
   
-  // Acceptable delta for numeric comparisons
+  acceptableDelta: 0.01
+};
+
+// Using config objects (NestJS style)
+const configWithObjects = {
+  db1ConnectionString: {
+    server: 'localhost',
+    port: 1433,
+    user: 'sa',
+    password: 'password',
+    database: 'database1',
+    options: {
+      encrypt: false,
+      trustServerCertificate: true
+    }
+  },
+  db1Type: 'sqlserver',
+  db2ConnectionString: {
+    server: 'localhost',
+    port: 1434,
+    user: 'sa',
+    password: 'password',
+    database: 'database2',
+    options: {
+      encrypt: false,
+      trustServerCertificate: true
+    }
+  },
+  db2Type: 'sqlserver',
+  
+  db1Query: 'SELECT TOP 1000 id, name, amount FROM table1 ORDER BY id',
+  db2Query: 'SELECT TOP 1000 transaction_id, customer_name, total_amount FROM table2 ORDER BY transaction_id',
+  
+  fieldMappings: [],
   acceptableDelta: 0.01
 };
 ```
@@ -73,7 +132,11 @@ const config = {
 ### Basic Usage
 
 ```bash
-node database-comparison-tool.js
+# Test with connection strings
+npm run test:docker
+
+# Test with config objects
+npm run test:config
 ```
 
 ### As a Module

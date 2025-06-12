@@ -23,11 +23,11 @@ fi
 
 echo ""
 echo "🛑 Stopping existing containers..."
-docker-compose down -v
+docker compose down -v
 
 echo ""
 echo "🚀 Starting SQL Server containers with environment file..."
-docker-compose --env-file .env.docker up -d
+docker compose --env-file .env.docker up -d
 
 echo ""
 echo "⏳ Waiting for SQL Server initialization (90 seconds)..."
@@ -56,6 +56,6 @@ npm run test:docker
 echo ""
 echo "✅ Setup complete! If you see authentication errors, try:"
 echo "   1. Press Ctrl+C to cancel any stuck commands"
-echo "   2. Run: docker-compose --env-file .env.docker down -v"
-echo "   3. Run: docker-compose --env-file .env.docker up -d"
+echo "   2. Run: docker compose --env-file .env.docker down -v"
+echo "   3. Run: docker compose --env-file .env.docker up -d"
 echo "   4. Wait 90 seconds and try again"
