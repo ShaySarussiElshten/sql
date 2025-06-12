@@ -3,7 +3,7 @@
 const DatabaseComparisonTool = require('./database-comparison-tool');
 const dotenv = require('dotenv');
 
-dotenv.config({ path: '.env.config' });
+dotenv.config({ path: '.env' });
 
 console.log('🐳 Testing Database Comparison with Config Objects (NestJS Style)\n');
 
