@@ -7,10 +7,7 @@
     "db-compare": "./database-comparison-tool.js"
   },
   "scripts": {
-    "start": "node database-comparison-tool.js",
-    "test": "node test-example.js",
-    "test:docker": "node test-docker-setup.js",
-    "test:config": "node test-config-style.js",
+    "test": "node test-config-style.js",
     "install-deps": "npm install"
   },
   "keywords": [
