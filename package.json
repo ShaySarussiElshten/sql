@@ -7,8 +7,6 @@
     "db-compare": "./database-comparison-tool.js"
   },
   "scripts": {
-    "test": "node test-config-style.js",
-    "test:json": "node test-json-config.js",
     "run:json": "node run-json-config.js",
     "install-deps": "npm install"
   },
@@ -27,9 +25,7 @@
     "dotenv": "^16.5.0",
     "mssql": "^10.0.4"
   },
-  "devDependencies": {
-    "sqlite3": "^5.1.6"
-  },
+
   "engines": {
     "node": ">=14.0.0"
   }
