@@ -7,7 +7,6 @@
     "db-compare": "./database-comparison-tool.js"
   },
   "scripts": {
-    "run:json": "node run-json-config.js",
     "install-deps": "npm install"
   },
   "keywords": [
