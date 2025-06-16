@@ -8,7 +8,15 @@ dotenv.config();
 
 async function main() {
   try {
-    const configFile = process.argv[2] || 'config.json';
+    const configFile = process.argv[2];
+    
+    if (!configFile) {
+      console.error('❌ Error: Configuration file is required');
+      console.error('Usage: node run-json-config.js <config-file>');
+      console.error('Example: node run-json-config.js my-config.json');
+      process.exit(1);
+    }
+    
     console.log(`📋 Loading JSON configuration from: ${configFile}`);
     
     const jsonConfig = JSON.parse(await fs.readFile(configFile, 'utf8'));
@@ -41,6 +49,7 @@ async function main() {
     
     const results = await runner.runAllTests();
     await runner.saveResults();
+    await runner.saveTextResults();
     
     console.log('\n🎉 JSON configuration tests completed successfully!');
     
