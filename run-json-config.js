@@ -41,6 +41,7 @@ async function main() {
     
     const results = await runner.runAllTests();
     await runner.saveResults();
+    await runner.saveTextResults();
     
     console.log('\n🎉 JSON configuration tests completed successfully!');
     

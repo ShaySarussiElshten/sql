@@ -1,0 +1,23 @@
+DATABASE COMPARISON RESULTS
+==================================================
+
+TEST: [Trade].[dbo].[REZEFRT]
+
+QUERY: SELECT * FROM [Trade].[dbo].[REZEFRT] WHERE NRNUM=629014
+❌ Test failed for [Trade].[dbo].[REZEFRT]: Invalid object name 'Trade.dbo.REZEFRT'.
+
+QUERY: SELECT * FROM [Trade].[dbo].[REZEFRT] WHERE NRNUM=234743
+❌ Test failed for [Trade].[dbo].[REZEFRT]: Invalid object name 'Trade.dbo.REZEFRT'.
+
+#################################################
+
+TEST: [Trade].[dbo].[REZEFDelay]
+
+QUERY: SELECT * FROM [Trade].[dbo].[REZEFDelay] WHERE NRNUM=629014
+❌ Test failed for [Trade].[dbo].[REZEFDelay]: Invalid object name 'Trade.dbo.REZEFDelay'.
+
+QUERY: SELECT * FROM [Trade].[dbo].[REZEFDelay] WHERE NRNUM=234743
+❌ Test failed for [Trade].[dbo].[REZEFDelay]: Invalid object name 'Trade.dbo.REZEFDelay'.
+
+#################################################
+
