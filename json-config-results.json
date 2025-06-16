@@ -1,0 +1,310 @@
+[
+  {
+    "tableName": "[Trade].[dbo].[transactions]",
+    "queryName": "[Trade].[dbo].[transactions] - Sample Test 1",
+    "query": "SELECT TOP 5 id, customer_id, amount, status, created_at FROM transactions WHERE id <= 10",
+    "sourceRecords": 5,
+    "targetRecords": 5,
+    "totalFields": 5,
+    "exactMatches": 0,
+    "deltaMatches": 0,
+    "mismatches": 5,
+    "detailedResults": [
+      {
+        "recordIndex": 0,
+        "fieldComparisons": {
+          "id": {
+            "db1Value": 1,
+            "db2Value": 1,
+            "type": "exact",
+            "delta": 0
+          },
+          "customer_id": {
+            "db1Value": 1,
+            "db2Value": 1,
+            "type": "exact",
+            "delta": 0
+          },
+          "amount": {
+            "db1Value": 4800,
+            "db2Value": 4800,
+            "type": "exact",
+            "delta": 0
+          },
+          "status": {
+            "db1Value": "completed",
+            "db2Value": "completed",
+            "type": "exact",
+            "delta": 0
+          },
+          "created_at": {
+            "db1Value": "2024-01-01T16:40:00.000Z",
+            "db2Value": "2025-06-16T07:19:48.860Z",
+            "type": "mismatch",
+            "delta": 45931188.86
+          }
+        },
+        "overallMatch": "mismatch"
+      },
+      {
+        "recordIndex": 1,
+        "fieldComparisons": {
+          "id": {
+            "db1Value": 2,
+            "db2Value": 2,
+            "type": "exact",
+            "delta": 0
+          },
+          "customer_id": {
+            "db1Value": 2,
+            "db2Value": 2,
+            "type": "exact",
+            "delta": 0
+          },
+          "amount": {
+            "db1Value": 183.96,
+            "db2Value": 183.96,
+            "type": "exact",
+            "delta": 0
+          },
+          "status": {
+            "db1Value": "completed",
+            "db2Value": "completed",
+            "type": "exact",
+            "delta": 0
+          },
+          "created_at": {
+            "db1Value": "2024-01-01T14:49:00.000Z",
+            "db2Value": "2025-06-16T07:19:48.860Z",
+            "type": "mismatch",
+            "delta": 45937848.86
+          }
+        },
+        "overallMatch": "mismatch"
+      },
+      {
+        "recordIndex": 2,
+        "fieldComparisons": {
+          "id": {
+            "db1Value": 3,
+            "db2Value": 3,
+            "type": "exact",
+            "delta": 0
+          },
+          "customer_id": {
+            "db1Value": 3,
+            "db2Value": 3,
+            "type": "exact",
+            "delta": 0
+          },
+          "amount": {
+            "db1Value": 100,
+            "db2Value": 100,
+            "type": "exact",
+            "delta": 0
+          },
+          "status": {
+            "db1Value": "completed",
+            "db2Value": "completed",
+            "type": "exact",
+            "delta": 0
+          },
+          "created_at": {
+            "db1Value": "2024-01-01T10:34:00.000Z",
+            "db2Value": "2025-06-16T07:19:48.860Z",
+            "type": "mismatch",
+            "delta": 45953148.86
+          }
+        },
+        "overallMatch": "mismatch"
+      },
+      {
+        "recordIndex": 3,
+        "fieldComparisons": {
+          "id": {
+            "db1Value": 4,
+            "db2Value": 4,
+            "type": "exact",
+            "delta": 0
+          },
+          "customer_id": {
+            "db1Value": 4,
+            "db2Value": 4,
+            "type": "exact",
+            "delta": 0
+          },
+          "amount": {
+            "db1Value": 179.98,
+            "db2Value": 250.5,
+            "type": "mismatch",
+            "delta": 70.52000000000001
+          },
+          "status": {
+            "db1Value": "completed",
+            "db2Value": "pending",
+            "type": "mismatch",
+            "delta": null
+          },
+          "created_at": {
+            "db1Value": "2024-01-01T15:50:00.000Z",
+            "db2Value": "2025-06-16T07:19:48.860Z",
+            "type": "mismatch",
+            "delta": 45934188.86
+          }
+        },
+        "overallMatch": "mismatch"
+      },
+      {
+        "recordIndex": 4,
+        "fieldComparisons": {
+          "id": {
+            "db1Value": 5,
+            "db2Value": 5,
+            "type": "exact",
+            "delta": 0
+          },
+          "customer_id": {
+            "db1Value": 5,
+            "db2Value": 5,
+            "type": "exact",
+            "delta": 0
+          },
+          "amount": {
+            "db1Value": 699.99,
+            "db2Value": 75.25,
+            "type": "mismatch",
+            "delta": 624.74
+          },
+          "status": {
+            "db1Value": "completed",
+            "db2Value": "completed",
+            "type": "exact",
+            "delta": 0
+          },
+          "created_at": {
+            "db1Value": "2024-01-01T11:16:00.000Z",
+            "db2Value": "2025-06-16T07:19:48.860Z",
+            "type": "mismatch",
+            "delta": 45950628.86
+          }
+        },
+        "overallMatch": "mismatch"
+      }
+    ]
+  },
+  {
+    "tableName": "[Trade].[dbo].[transactions]",
+    "queryName": "[Trade].[dbo].[transactions] - Sample Test 2",
+    "query": "SELECT TOP 3 id, customer_id, amount, status FROM transactions WHERE amount > 100",
+    "sourceRecords": 3,
+    "targetRecords": 3,
+    "totalFields": 4,
+    "exactMatches": 2,
+    "deltaMatches": 0,
+    "mismatches": 1,
+    "detailedResults": [
+      {
+        "recordIndex": 0,
+        "fieldComparisons": {
+          "id": {
+            "db1Value": 1,
+            "db2Value": 1,
+            "type": "exact",
+            "delta": 0
+          },
+          "customer_id": {
+            "db1Value": 1,
+            "db2Value": 1,
+            "type": "exact",
+            "delta": 0
+          },
+          "amount": {
+            "db1Value": 4800,
+            "db2Value": 4800,
+            "type": "exact",
+            "delta": 0
+          },
+          "status": {
+            "db1Value": "completed",
+            "db2Value": "completed",
+            "type": "exact",
+            "delta": 0
+          }
+        },
+        "overallMatch": "exact"
+      },
+      {
+        "recordIndex": 1,
+        "fieldComparisons": {
+          "id": {
+            "db1Value": 2,
+            "db2Value": 2,
+            "type": "exact",
+            "delta": 0
+          },
+          "customer_id": {
+            "db1Value": 2,
+            "db2Value": 2,
+            "type": "exact",
+            "delta": 0
+          },
+          "amount": {
+            "db1Value": 183.96,
+            "db2Value": 183.96,
+            "type": "exact",
+            "delta": 0
+          },
+          "status": {
+            "db1Value": "completed",
+            "db2Value": "completed",
+            "type": "exact",
+            "delta": 0
+          }
+        },
+        "overallMatch": "exact"
+      },
+      {
+        "recordIndex": 2,
+        "fieldComparisons": {
+          "id": {
+            "db1Value": 4,
+            "db2Value": 4,
+            "type": "exact",
+            "delta": 0
+          },
+          "customer_id": {
+            "db1Value": 4,
+            "db2Value": 4,
+            "type": "exact",
+            "delta": 0
+          },
+          "amount": {
+            "db1Value": 179.98,
+            "db2Value": 250.5,
+            "type": "mismatch",
+            "delta": 70.52000000000001
+          },
+          "status": {
+            "db1Value": "completed",
+            "db2Value": "pending",
+            "type": "mismatch",
+            "delta": null
+          }
+        },
+        "overallMatch": "mismatch"
+      }
+    ]
+  },
+  {
+    "tableName": "[Trade].[dbo].[orders]",
+    "queryName": "[Trade].[dbo].[orders] - Sample Test 1",
+    "query": "SELECT TOP 5 order_id, user_id, total_amount, order_status, order_date FROM orders WHERE order_id <= 10",
+    "error": "Invalid object name 'orders'."
+  },
+  {
+    "tableName": "[Trade].[dbo].[orders]",
+    "queryName": "[Trade].[dbo].[orders] - Sample Test 2",
+    "query": "SELECT TOP 3 order_id, user_id, total_amount, order_status FROM orders WHERE total_amount > 100",
+    "error": "Invalid object name 'orders'."
+  }
+]
