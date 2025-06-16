@@ -1,96 +1,108 @@
 # Database Comparison Tool
 
-A comprehensive Node.js script that connects to two databases, compares data with customizable field mappings, and generates detailed accuracy reports.
+A comprehensive Node.js tool for comparing data between two SQL Server databases with automatic field mapping detection and detailed reporting.
 
 ## Features
 
-- **Multi-Database Support**: Works with Microsoft SQL Server databases
-- **Flexible Field Mapping**: Define custom field mappings between databases
-- **Automatic Field Detection**: Attempts to detect field mappings automatically
-- **Delta Tolerance**: Configurable tolerance for numeric differences
-- **Comprehensive Reporting**: Detailed analysis with match classifications
-- **Error Handling**: Graceful error handling and connection management
-- **Progress Tracking**: Real-time progress updates for large datasets
+- **Flexible Configuration**: Support for both environment variables and JSON-based configuration
+- **Multiple Database Types**: Currently supports SQL Server with extensible architecture
+- **Automatic Field Mapping**: Intelligent detection of field relationships between databases
+- **Detailed Reporting**: Comprehensive comparison reports with statistics and analysis
+- **NestJS Integration**: Native support for NestJS-style database configurations
+- **Docker Support**: Ready-to-use Docker environment for testing
 
 ## Installation
-
-1. Clone or download the script files
-2. Install dependencies:
 
 ```bash
 npm install
 ```
 
-## Dependencies
+## Configuration Methods
 
-- `mssql`: Microsoft SQL Server database connector
+### 1. Environment Variables (.env)
 
-## Configuration
-
-### Environment Variables
-
-You can configure the tool using environment variables:
+Create a `.env` file with your database configurations:
 
 ```bash
-export DB1_CONNECTION_STRING="mssql://sa:password@localhost:1433/database1"
-export DB2_CONNECTION_STRING="mssql://sa:password@localhost:1434/database2"
-export DB1_QUERY="SELECT TOP 1000 id, name, amount FROM table1 ORDER BY id"
-export DB2_QUERY="SELECT TOP 1000 transaction_id, customer_name, total_amount FROM table2 ORDER BY transaction_id"
-export ACCEPTABLE_DELTA="0.01"
+# Database 1 Configuration
+DB1_HOST=localhost
+DB1_PORT=1433
+DB1_USER=sa
+DB1_PASSWORD=YourPassword
+DB1_DATABASE=database1
+
+# Database 2 Configuration
+DB2_HOST=localhost
+DB2_PORT=1434
+DB2_USER=sa
+DB2_PASSWORD=YourPassword
+DB2_DATABASE=database2
+
+# Queries (for single comparison)
+DB1_QUERY=SELECT * FROM table1
+DB2_QUERY=SELECT * FROM table2
+
+# Configuration
+ACCEPTABLE_DELTA=0.01
 ```
 
-### Code Configuration
+### 2. JSON Configuration (Multiple Tables/Queries)
 
-Alternatively, modify the configuration object in the script:
+Create a JSON configuration file (e.g., `config.json`):
 
-```javascript
-const config = {
-  // Database connections
-  db1ConnectionString: 'mysql://user:password@localhost:3306/database1',
-  db1Type: 'mysql',
-  db2ConnectionString: 'postgresql://user:password@localhost:5432/database2',
-  db2Type: 'postgresql',
-  
-  // Custom queries
-  db1Query: 'SELECT id, name, amount, created_at FROM transactions ORDER BY id LIMIT 1000',
-  db2Query: 'SELECT transaction_id, customer_name, total_amount, timestamp FROM orders ORDER BY transaction_id LIMIT 1000',
-  
-  // Field mappings
-  fieldMappings: [
-    { db1: 'id', db2: 'transaction_id' },
-    { db1: 'name', db2: 'customer_name' },
-    { db1: 'amount', db2: 'total_amount' },
-    { db1: 'created_at', db2: 'timestamp' }
-  ],
-  
-  // Acceptable delta for numeric comparisons
-  acceptableDelta: 0.01
-};
+```json
+[
+  {
+    "name": "[Trade].[dbo].[REZEFRT]",
+    "queries": [
+      {
+        "name": "[Trade].[dbo].[REZEFRT] - TEVA",
+        "query": "SELECT * FROM [Trade].[dbo].[REZEFRT] WHERE NRNUM=629014",
+        "compare_record_count": true
+      },
+      {
+        "name": "[Trade].[dbo].[REZEFRT] - Another Test",
+        "query": "SELECT * FROM [Trade].[dbo].[REZEFRT] WHERE NRNUM=234743",
+        "compare_record_count": true
+      }
+    ]
+  },
+  {
+    "name": "[Trade].[dbo].[REZEFDelay]",
+    "queries": [
+      {
+        "name": "[Trade].[dbo].[REZEFDelay] - TEVA",
+        "query": "SELECT * FROM [Trade].[dbo].[REZEFDelay] WHERE NRNUM=629014",
+        "compare_record_count": true
+      }
+    ]
+  }
+]
 ```
 
 ## Usage
 
-### Basic Usage
+### Single Comparison (Environment Variables)
 
 ```bash
-node database-comparison-tool.js
+# Test with config objects (NestJS style)
+npm test
+
+# Test with Docker environment
+npm run test:json
 ```
 
-### As a Module
+### Multiple Comparisons (JSON Configuration)
 
-```javascript
-const DatabaseComparisonTool = require('./database-comparison-tool');
+```bash
+# Run with default config.json
+npm run json:config
 
-const config = {
-  // ... your configuration
-};
+# Run with custom configuration file
+npm run json:config config-example.json
 
-const tool = new DatabaseComparisonTool(config);
-tool.run().then(report => {
-  console.log('Comparison completed:', report.summary);
-}).catch(error => {
-  console.error('Comparison failed:', error);
-});
+# Run JSON configuration runner directly
+npm run json:run
 ```
 
 ## Field Mapping
@@ -158,39 +170,43 @@ When fields cannot be mapped automatically, the tool will:
 - Console report with formatted output
 - JSON file with complete detailed results
 
-## Example Output
+## Output Format
 
+### Standard Output
 ```
 📊 DATABASE COMPARISON REPORT
 ==================================================
 
 📈 SUMMARY STATISTICS:
-Total Records Compared: 1000
-Exact Matches: 850 (85.00%)
-Delta Matches: 120 (12.00%)
-Significant Mismatches: 30 (3.00%)
-Overall Accuracy: 97.00%
+Total Records Compared: 500
+Exact Matches: 253 (50.60%)
+Delta Matches: 2 (0.40%)
+Significant Mismatches: 245 (49.00%)
+Overall Accuracy: 51.00%
+```
 
-🔍 DETAILED ANALYSIS:
+### JSON Configuration Output
+```
+TEST: [Trade].[dbo].[REZEFRT]
 
-Delta Matches Analysis:
-  • Count: 120
-  • Min Delta: 0.000001
-  • Max Delta: 0.009999
-  • Avg Delta: 0.004523
+QUERY: SELECT * FROM [Trade].[dbo].[REZEFRT] WHERE NRNUM=629014
+RECORD COUNT: SOURCE: 1; TARGET: 1
+FIELDS: TOTAL: 20, OK: 19, FAILED: 1
+WRONG FIELDS: TRADESHR: 23,876 != 22,865;
 
-Top Mismatches (showing first 5):
-  1. Record 45, Field 'amount': 100.50 ≠ 105.75
-  2. Record 123, Field 'name': John Smith ≠ J. Smith
-  3. Record 234, Field 'amount': 250.00 ≠ null
+QUERY: SELECT * FROM [Trade].[dbo].[REZEFRT] WHERE NRNUM=234743
+RECORD COUNT: SOURCE: 1; TARGET: 1
+FIELDS: TOTAL: 15, OK: 10, FAILED: 2
+WRONG FIELDS: TRADESHR: 5,876 != 4,865; TRADESHRCHG: 0.52 != 0.94
 
-Largest Delta Differences (showing top 5):
-  1. Record 67, Field 'amount': 1000.00 vs 1000.009999 (Δ=0.009999)
-  2. Record 89, Field 'amount': 500.25 vs 500.259 (Δ=0.009000)
+#################################################
 
-⚙️  CONFIGURATION:
-Acceptable Delta: 0.01
-Field Mappings Used: 4
+TEST: [Trade].[dbo].[REZEFDelay]
+
+QUERY: SELECT * FROM [Trade].[dbo].[REZEFDelay] WHERE NRNUM=629014
+RECORD COUNT: SOURCE: 1; TARGET: 1
+FIELDS: TOTAL: 20, OK: 19, FAILED: 1
+WRONG FIELDS: TRADESHR: 23,876 != 22,865;
 ```
 
 ## Error Handling
@@ -228,6 +244,113 @@ The tool handles various error scenarios:
 - Use indexed columns in ORDER BY clauses
 - Consider comparing data in batches for very large datasets
 
+## Docker Environment
+
+Start the test environment:
+
+```bash
+# Setup and start containers
+./setup-sqlserver.sh
+
+# Or manually
+docker-compose up -d
+sleep 90  # Wait for initialization
+npm test
+```
+
+## API Usage
+
+### Basic Usage
+
+```javascript
+const DatabaseComparisonTool = require('./database-comparison-tool');
+
+const config = {
+  db1ConnectionString: 'mssql://user:pass@host:port/db1',
+  db1Type: 'sqlserver',
+  db1Query: 'SELECT * FROM table1',
+  
+  db2ConnectionString: 'mssql://user:pass@host:port/db2',
+  db2Type: 'sqlserver',
+  db2Query: 'SELECT * FROM table2',
+  
+  acceptableDelta: 0.01,
+  fieldMappings: []
+};
+
+const tool = new DatabaseComparisonTool(config);
+const report = await tool.run();
+```
+
+### NestJS Style Configuration
+
+```javascript
+const dbConfig1 = {
+  server: 'localhost',
+  port: 1433,
+  user: 'sa',
+  password: 'password',
+  database: 'database1',
+  options: {
+    encrypt: false,
+    trustServerCertificate: true
+  }
+};
+
+const config = {
+  db1ConnectionString: dbConfig1,  // Pass config object
+  db1Type: 'sqlserver',
+  // ... rest of configuration
+};
+```
+
+### JSON Configuration Runner
+
+```javascript
+const JsonConfigRunner = require('./json-config-runner');
+
+const jsonConfig = [/* your JSON configuration */];
+const runner = new JsonConfigRunner(jsonConfig, dbConfig1, dbConfig2);
+const results = await runner.runAllTests();
+```
+
+## Field Mapping
+
+The tool automatically detects field mappings between databases. You can also specify custom mappings:
+
+```javascript
+const config = {
+  // ... other configuration
+  fieldMappings: [
+    { db1: 'id', db2: 'transaction_id' },
+    { db1: 'name', db2: 'customer_name' },
+    { db1: 'amount', db2: 'total_amount' }
+  ]
+};
+```
+
+## Comparison Types
+
+- **Exact Match**: Values are identical
+- **Delta Match**: Numeric values within acceptable delta range
+- **Significant Mismatch**: Values differ beyond acceptable threshold
+
+## Error Handling
+
+The tool provides comprehensive error handling and reporting:
+- Connection failures
+- Query execution errors
+- Data type mismatches
+- Field mapping issues
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests
+5. Submit a pull request
+
 ## License
 
-MIT License - feel free to modify and distribute as needed.
+MIT License

@@ -1,0 +1,17 @@
+[
+  {
+    "name": "[Trade].[dbo].[transactions]",
+    "queries": [
+      {
+        "name": "[Trade].[dbo].[transactions] - Test 1",
+        "query": "SELECT TOP 5 id as record_id, customer_id, amount, status FROM transactions WHERE id <= 10",
+        "compare_record_count": true
+      },
+      {
+        "name": "[Trade].[dbo].[transactions] - Test 2", 
+        "query": "SELECT TOP 3 id as record_id, amount, status FROM transactions WHERE amount > 100",
+        "compare_record_count": true
+      }
+    ]
+  }
+]
