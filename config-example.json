@@ -1,0 +1,32 @@
+[
+  {
+    "name": "[Trade].[dbo].[REZEFRT]",
+    "queries": [
+      {
+        "name": "[Trade].[dbo].[REZEFRT] - TEVA",
+        "query": "SELECT * FROM [Trade].[dbo].[REZEFRT] WHERE NRNUM=629014",
+        "compare_record_count": true
+      },
+      {
+        "name": "[Trade].[dbo].[REZEFRT] - Another Test",
+        "query": "SELECT * FROM [Trade].[dbo].[REZEFRT] WHERE NRNUM=234743",
+        "compare_record_count": true
+      }
+    ]
+  },
+  {
+    "name": "[Trade].[dbo].[REZEFDelay]",
+    "queries": [
+      {
+        "name": "[Trade].[dbo].[REZEFDelay] - TEVA",
+        "query": "SELECT * FROM [Trade].[dbo].[REZEFDelay] WHERE NRNUM=629014",
+        "compare_record_count": true
+      },
+      {
+        "name": "[Trade].[dbo].[REZEFDelay] - Another Test",
+        "query": "SELECT * FROM [Trade].[dbo].[REZEFDelay] WHERE NRNUM=234743",
+        "compare_record_count": true
+      }
+    ]
+  }
+]
