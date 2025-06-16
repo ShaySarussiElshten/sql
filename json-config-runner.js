@@ -130,7 +130,7 @@ class JsonConfigRunner {
     this.textOutput.push(fieldsLine + '\n');
     
     if (wrongFields.length > 0) {
-      const wrongFieldsLine = `WRONG FIELDS: ${wrongFields.join('; ')}`;
+      const wrongFieldsLine = `WRONG FIELDS: ${wrongFields.join(';\n')}`;
       console.log(wrongFieldsLine);
       this.textOutput.push(wrongFieldsLine + '\n');
     } else {
