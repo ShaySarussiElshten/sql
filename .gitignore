@@ -1,11 +1,5 @@
 # Environment files
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-.env.docker
-.env.config
 
 # Dependencies
 node_modules/
@@ -14,35 +8,15 @@ node_modules/
 *.log
 npm-debug.log*
 
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
+# JSON configuration results
+json-config-results.json
 
-# Coverage directory used by tools like istanbul
-coverage/
+# IDE files
+.vscode/
+.idea/
 
-# Compiled binary addons
-build/Release
-
-# Dependency directories
-jspm_packages/
-
-# Optional npm cache directory
-.npm
-
-# Optional REPL history
-.node_repl_history
-
-# Output of 'npm pack'
-*.tgz
-
-# Yarn Integrity file
-.yarn-integrity
-
-# Database comparison reports
-database-comparison-report.json
-
-# SQL data files
-*.sql
+# OS files
+.DS_Store
+*.swp
+*.swo
+*~
