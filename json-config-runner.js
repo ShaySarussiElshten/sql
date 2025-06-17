@@ -50,6 +50,15 @@ class JsonConfigRunner {
     console.log(`QUERY: ${queryConfig.query}`);
     this.textOutput.push(`QUERY: ${queryConfig.query}\n`);
     
+    let fieldPrecision = {};
+    if (queryConfig.precision && Array.isArray(queryConfig.precision)) {
+      for (const precisionItem of queryConfig.precision) {
+        for (const [fieldName, delta] of Object.entries(precisionItem)) {
+          fieldPrecision[fieldName] = delta;
+        }
+      }
+    }
+    
     const tool = new DatabaseComparisonTool({
       db1ConnectionString: this.dbConfig1,
       db1Type: 'sqlserver',
@@ -58,7 +67,8 @@ class JsonConfigRunner {
       db1Query: queryConfig.query,
       db2Query: queryConfig.query,
       fieldMappings: [],
-      acceptableDelta: parseFloat(process.env.ACCEPTABLE_DELTA) || 0.01
+      acceptableDelta: parseFloat(process.env.ACCEPTABLE_DELTA) || 0.01,
+      fieldPrecision: fieldPrecision
     });
 
     await tool.establishConnections();
