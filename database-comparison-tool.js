@@ -10,6 +10,14 @@ class DatabaseComparisonTool {
     this.db2Connection = null;
     this.fieldMappings = config.fieldMappings || [];
     this.acceptableDelta = config.acceptableDelta || 0.001;
+    
+    this.fieldPrecision = new Map();
+    if (config.fieldPrecision) {
+      for (const [fieldName, delta] of Object.entries(config.fieldPrecision)) {
+        this.fieldPrecision.set(fieldName, delta);
+      }
+    }
+    
     this.results = {
       totalRecords: 0,
       exactMatches: 0,
@@ -189,10 +197,12 @@ class DatabaseComparisonTool {
     if (value1 === null && value2 === null) return { type: 'exact', delta: 0 };
     if (value1 === null || value2 === null) return { type: 'mismatch', delta: null };
 
+    const acceptableDelta = this.fieldPrecision.get(fieldName) || this.acceptableDelta;
+
     if (typeof value1 === 'number' && typeof value2 === 'number') {
       const delta = Math.abs(value1 - value2);
       if (delta === 0) return { type: 'exact', delta: 0 };
-      if (delta <= this.acceptableDelta) return { type: 'delta', delta };
+      if (delta <= acceptableDelta) return { type: 'delta', delta };
       return { type: 'mismatch', delta };
     }
 
@@ -234,7 +244,7 @@ class DatabaseComparisonTool {
       if (!isNaN(num1) && !isNaN(num2)) {
         const delta = Math.abs(num1 - num2);
         if (delta === 0) return { type: 'exact', delta: 0 };
-        if (delta <= this.acceptableDelta) return { type: 'delta', delta };
+        if (delta <= acceptableDelta) return { type: 'delta', delta };
         return { type: 'mismatch', delta };
       }
       

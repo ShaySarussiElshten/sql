@@ -5,7 +5,11 @@
       {
         "name": "[Trade].[dbo].[REZEFRT] - TEVA",
         "query": "SELECT * FROM [Trade].[dbo].[REZEFRT] WHERE NRNUM=629014",
-        "compare_record_count": true
+        "compare_record_count": true,
+        "precision": [
+          {"BASESHR": 0.05},
+          {"BUYLIM1": 0.08}
+        ]
       },
       {
         "name": "[Trade].[dbo].[REZEFRT] - Another Test",
